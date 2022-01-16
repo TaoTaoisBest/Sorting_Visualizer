@@ -7,6 +7,13 @@ import {mergeSort} from './algorithms/mergeSort.js';
 
 import Frame from './frame';
 
+<<<<<<< HEAD
+=======
+const BAR_NOT_MATTER = 0 
+const BAR_CURRENT = 1
+const BAR_DONE = 2;
+
+>>>>>>> f79b5b18e1efddde39adc5bd971c02c4392b2a94
 class SortSreenVisualizer extends Component {
 
     constructor(props) {
@@ -15,9 +22,14 @@ class SortSreenVisualizer extends Component {
             sortingMethod: props.location.aboutProps.sortingMethod,
             category: props.location.aboutProps.category,
             value: props.location.aboutProps.value,
+<<<<<<< HEAD
             videos: [],
         }
 
+=======
+            videos: [], // array of dictionaries {key: num; barType: 0,1,2}
+        }
+>>>>>>> f79b5b18e1efddde39adc5bd971c02c4392b2a94
     }
 
     componentDidMount() {
@@ -29,6 +41,7 @@ class SortSreenVisualizer extends Component {
         const min = 1;
         const max = 100;
         for (let index = 0; index < this.state.value; index++) {
+<<<<<<< HEAD
             var rand =  Math.floor(min + (Math.random() * (max-min + 1)));
             lst.push(rand);
         }
@@ -53,10 +66,32 @@ class SortSreenVisualizer extends Component {
                 
             </div>
         );
+=======
+            let randNum =  Math.floor(min + (Math.random() * (max-min + 1)));
+            lst.push({key: parseInt(randNum), barType: BAR_NOT_MATTER});
+        }
+        // console.log(lst);
+        this.setState({videos: lst});
+    }
+
+    render(){
+        return(
+            <div>
+                <h1>Sort Sreen</h1>
+
+                <Frame videos={this.state.videos}/>
+            </div>
+        );
+
+>>>>>>> f79b5b18e1efddde39adc5bd971c02c4392b2a94
     }
 
     startSort = async() => {
         await this.generateNumbers();
+<<<<<<< HEAD
+=======
+
+>>>>>>> f79b5b18e1efddde39adc5bd971c02c4392b2a94
         // get an arry of moves (to visualize either swap or no swap)
         let moves = await this.getAlgorithmMoves();
         // console.log(moves);
@@ -64,13 +99,22 @@ class SortSreenVisualizer extends Component {
         // visualize swap
         await this.visualizeMoves(moves);
 
+<<<<<<< HEAD
+=======
+        await this.done();
+
+>>>>>>> f79b5b18e1efddde39adc5bd971c02c4392b2a94
         console.log("start out");
     }
 
 
     getAlgorithmMoves = async() => {
         let moves = [];
+<<<<<<< HEAD
         let arr = await this.dCopyList();
+=======
+        let arr = await this.getKeysList();
+>>>>>>> f79b5b18e1efddde39adc5bd971c02c4392b2a94
         
         console.log("In getAlgorithmMoves")
 
@@ -96,15 +140,29 @@ class SortSreenVisualizer extends Component {
         while(moves.length > 0) {
             let curr = moves[0];
 
+<<<<<<< HEAD
+=======
+            let indices = [curr[0], curr[1]];
+            // change bar status to BAR_CURRENT
+            await this.updateBarStatus(indices, BAR_CURRENT);
+
+>>>>>>> f79b5b18e1efddde39adc5bd971c02c4392b2a94
             if(curr[2] === true) {
                 await this.swpUpdateList(curr[0], curr[1]);
             }
 
+<<<<<<< HEAD
+=======
+            // change bar status to BAR_NOT_MATTER
+            await this.updateBarStatus(indices, BAR_NOT_MATTER);
+
+>>>>>>> f79b5b18e1efddde39adc5bd971c02c4392b2a94
             moves.shift();
         }
 
     }
 
+<<<<<<< HEAD
     // swap the element for each move
     swpUpdateList = async(idx1, idx2) => {
         let arr = [...this.state.videos];
@@ -112,6 +170,26 @@ class SortSreenVisualizer extends Component {
         let tmp = arr[idx1];
         arr[idx1] = arr[idx2];
         arr[idx2] = tmp;
+=======
+    // Swap the element for each move
+    swpUpdateList = async(idx1, idx2) => {
+        let arr = [...this.state.videos];
+
+        let tmp = arr[idx1].key;
+        arr[idx1].key = arr[idx2].key;
+        arr[idx2].key = tmp;
+
+        await this.updateStateChanges(arr);
+    }
+
+    // Update Bar Status
+    updateBarStatus = async(indices, barStatus) => {
+        let arr = [...this.state.videos];
+
+        for(let i = 0; i < indices.length; i++) {
+            arr[indices[i]].barType = barStatus;
+        }
+>>>>>>> f79b5b18e1efddde39adc5bd971c02c4392b2a94
 
         await this.updateStateChanges(arr);
     }
@@ -127,6 +205,7 @@ class SortSreenVisualizer extends Component {
         return new Promise(resolve => {
             setTimeout(() => {
                 resolve();
+<<<<<<< HEAD
             }, );
         });
     }
@@ -136,6 +215,28 @@ class SortSreenVisualizer extends Component {
         let lst = [];
         for(let i = 0; i < this.state.videos.length; i++) {
             lst.push(this.state.videos[i]);
+=======
+            }, 300/1);
+        });
+    }
+
+    // Update All Bar Status to Done 
+    done = async() => {
+        let indices = []
+
+        for(let i = 0; i < this.state.videos.length; i++) {
+            indices.push(i);
+        }
+
+        await this.updateBarStatus(indices, BAR_DONE);
+    }
+
+
+    getKeysList = async() => {
+        let lst = [];
+        for(let i = 0; i < this.state.videos.length; i++) {
+            lst.push(this.state.videos[i].key);
+>>>>>>> f79b5b18e1efddde39adc5bd971c02c4392b2a94
         }
 
         return lst;

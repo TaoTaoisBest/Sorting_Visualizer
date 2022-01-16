@@ -15,6 +15,10 @@ export const bubbleSort = async(array) => {
             }
         }
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> f79b5b18e1efddde39adc5bd971c02c4392b2a94
     return moves;
 }
