@@ -1,6 +1,0 @@
-ul.bars_container{
-    height: 80%;
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
-}

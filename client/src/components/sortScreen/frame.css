@@ -10,3 +10,7 @@ li.bars_swap{
     flex: 1;
     margin: 5px;
 }
+ul.bars_container{
+    list-style-type: none;
+    display: inline;
+}
